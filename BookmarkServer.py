@@ -44,6 +44,7 @@
 import http.server
 import requests
 from urllib.parse import unquote, parse_qs
+from os import environ
 
 memory = {}
 
@@ -83,7 +84,7 @@ def CheckURI(uri, timeout=5):
     (i.e. times out).
     '''
     # 1. Write this function.  Delete the following line.
-    #raise NotImplementedError("Step 1 isn't written yet.")
+    # raise NotImplementedError("Step 1 isn't written yet.")
 
 
 class Shortener(http.server.BaseHTTPRequestHandler):
@@ -99,7 +100,7 @@ class Shortener(http.server.BaseHTTPRequestHandler):
                 self.send_response(303)
                 self.send_header('location', memory[name])
                 self.end_headers()
-                #raise NotImplementedError("Step 2 isn't written yet.")
+                # raise NotImplementedError("Step 2 isn't written yet.")
             else:
                 # We don't know that name! Send a 404 error.
                 self.send_response(404)
@@ -130,7 +131,7 @@ class Shortener(http.server.BaseHTTPRequestHandler):
             self.wfile.write("Complete Your Parameters yasta !!!".encode())
             # 3. Serve a 400 error with a useful message.
             #    Delete the following line.
-            #raise NotImplementedError("Step 3 isn't written yet!")
+            # raise NotImplementedError("Step 3 isn't written yet!")
 
         longuri = params["longuri"][0]
         shortname = params["shortname"][0]
@@ -150,16 +151,17 @@ class Shortener(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain; charset=utf-8')
             self.end_headers()
             self.wfile.write(
-                '''this '{}' isn't mawgod ya 3l2.\n 
+                '''this '{}' isn't mawgod ya 3l2.\n
                 estrglo b2a ktko 2rf !!!'''.format(longuri).encode())
             # Didn't successfully fetch the long URI.
 
             # 5. Send a 404 error with a useful message.
             #    Delete the following line.
-            #raise NotImplementedError("Step 5 isn't written yet!")
+            # raise NotImplementedError("Step 5 isn't written yet!")
 
 
 if __name__ == '__main__':
-    server_address = ('', 8000)
+	port = int(environ.get('PORT', 8000))
+    server_address = ('', port)
     httpd = http.server.HTTPServer(server_address, Shortener)
     httpd.serve_forever()
