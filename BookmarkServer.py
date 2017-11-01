@@ -145,7 +145,7 @@ class Shortener(http.server.BaseHTTPRequestHandler):
 
             # 4. Serve a redirect to the root page (the form).
             #    Delete the following line.
-            raise NotImplementedError("Step 4 isn't written yet!")
+            # raise NotImplementedError("Step 4 isn't written yet!")
         else:
             self.send_response(404)
             self.send_header('Content-type', 'text/plain; charset=utf-8')
